@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  url-shortner:
+    build: .
+    container_name: url_shortner_app
+    ports:
+      - "8000:8000"
+    environment:
+      DB_USER: root
+      DB_PASSWORD: secret
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: url_shortner
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_server
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: url_shortner
+    ports:
+      - "3306:3306"
